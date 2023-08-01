@@ -2,8 +2,8 @@ import webbrowser
 import re
 import sys
 import os
-import tkinter as tk
-import tkinter.messagebox
+import  tkinter as tk
+import tkinter.messagebox as tk1
 import tkinter.filedialog
 from pathlib import Path
 
@@ -51,17 +51,17 @@ def btn_clicked():
             "Invalid URL!", "Please enter a valid file URL.")
         return
 
-    file_key = match.group(1).strip()
+    file_key = match[1].strip()
     token = token.strip()
-    output = Path(output_path + "/build").expanduser().resolve()
+    output = Path(f"{output_path}/build").expanduser().resolve()
 
     if output.exists() and not output.is_dir():
-        tk.messagebox.showerror(
+        tk1.showerror(
             "Exists!",
             f"{output} already exists and is not a directory.\n"
             "Enter a valid output directory.")
     elif output.exists() and output.is_dir() and tuple(output.glob('*')):
-        response = tk.messagebox.askyesno(
+        response = tk1.askyesno(
             "Continue?",
             f"Directory {output} is not empty.\n"
             "Do you want to continue and overwrite?")
@@ -113,21 +113,20 @@ canvas = tk.Canvas(
     bd=0, highlightthickness=0, relief="ridge")
 canvas.place(x=0, y=0)
 canvas.create_rectangle(431, 0, 431 + 431, 0 + 519, fill="#FCFCFC", outline="")
-canvas.create_rectangle(40, 160, 40 + 60, 160 + 5, fill="#FCFCFC", outline="")
 
 text_box_bg = tk.PhotoImage(file=ASSETS_PATH / "TextBox_Bg.png")
 token_entry_img = canvas.create_image(650.5, 167.5, image=text_box_bg)
 URL_entry_img = canvas.create_image(650.5, 248.5, image=text_box_bg)
 filePath_entry_img = canvas.create_image(650.5, 329.5, image=text_box_bg)
 
-token_entry = tk.Entry(bd=0, bg="#F6F7F9", highlightthickness=0)
+token_entry = tk.Entry(bd=0, bg="#F6F7F9",fg="#000716",  highlightthickness=0)
 token_entry.place(x=490.0, y=137+25, width=321.0, height=35)
 token_entry.focus()
 
-URL_entry = tk.Entry(bd=0, bg="#F6F7F9", highlightthickness=0)
+URL_entry = tk.Entry(bd=0, bg="#F6F7F9", fg="#000716",  highlightthickness=0)
 URL_entry.place(x=490.0, y=218+25, width=321.0, height=35)
 
-path_entry = tk.Entry(bd=0, bg="#F6F7F9", highlightthickness=0)
+path_entry = tk.Entry(bd=0, bg="#F6F7F9", fg="#000716", highlightthickness=0)
 path_entry.place(x=490.0, y=299+25, width=321.0, height=35)
 
 path_picker_img = tk.PhotoImage(file = ASSETS_PATH / "path_picker.png")
@@ -164,8 +163,9 @@ canvas.create_text(
 
 title = tk.Label(
     text="Welcome to Tkinter Designer", bg="#3A7FF6",
-    fg="white", font=("Arial-BoldMT", int(20.0)))
-title.place(x=27.0, y=120.0)
+    fg="white",justify="left", font=("Arial-BoldMT", int(20.0)))
+title.place(x=20.0, y=120.0)
+canvas.create_rectangle(25, 160, 33 + 60, 160 + 5, fill="#FCFCFC", outline="")
 
 info_text = tk.Label(
     text="Tkinter Designer uses the Figma API\n"
@@ -178,12 +178,12 @@ info_text = tk.Label(
     bg="#3A7FF6", fg="white", justify="left",
     font=("Georgia", int(16.0)))
 
-info_text.place(x=27.0, y=200.0)
+info_text.place(x=20.0, y=200.0)
 
 know_more = tk.Label(
     text="Click here for instructions",
-    bg="#3A7FF6", fg="white", cursor="hand2")
-know_more.place(x=27, y=400)
+    bg="#3A7FF6", fg="white",justify="left", cursor="hand2")
+know_more.place(x=20, y=400)
 know_more.bind('<Button-1>', know_more_clicked)
 
 generate_btn_img = tk.PhotoImage(file=ASSETS_PATH / "generate.png")
